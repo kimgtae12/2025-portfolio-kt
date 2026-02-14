@@ -1,0 +1,18 @@
+
+/* Header 컴포넌트 스타일 */
+.os-header {
+  @apply w-full py-[0.8rem] bg-white/30 backdrop-blur-xl border border-white/20 shadow-2xl z-50;
+}
+  
+/* 다크모드 Header */
+.os-header-dark {
+  @apply dark:bg-gray-900/30 dark:border-white/10;
+}
+  
+.os-header-font {
+  @apply text-content text-text-primary font-medium;
+}
+  
+.os-header-font-dark {
+  @apply dark:text-text-secondary;
+}
