@@ -2,9 +2,14 @@ import Icon from 'components/atoms/Icon';
 import { DockbarIcon } from 'components/molecules/dockbarIcon/DockbarIcon';
 import React from 'react';
 import { useModal } from 'context/ModalContext';
+import { WEB_LINKS } from 'utils/mapping';
 
 export const DockBar : React.FC = () => {
     const { openModal } = useModal();
+
+    const handleLinkWeb = (type : 'github' | 'tistory') => {
+        window.open(WEB_LINKS[type]);
+    }
 
     return (
         <div className="dock-bar-container">
@@ -32,13 +37,13 @@ export const DockBar : React.FC = () => {
                 category='dockbar'
                 name='ic_github'
                 label='Git Hub'
-                onClick={() => openModal('github')}
+                onClick={() => handleLinkWeb('github')}
             />
             <DockbarIcon 
                 category='dockbar'
                 name='ic_tstory'
                 label='티스토리'
-                onClick={() => openModal('tstory')}
+                onClick={() => handleLinkWeb('tistory')}
             />
         </div>
         </div>

@@ -1,3 +1,4 @@
+import { Typograpy } from 'components/atoms/Typograpy';
 import { useGetNowTime } from 'hook/useGetNowTime';
 import React, { useState } from 'react';
 
@@ -32,14 +33,14 @@ const Header: React.FC = () => {
 
   return (
     <header className="os-header os-header-dark">
-      <nav className="flex flex-row w-full justify-between items-center px-[2rem] gap-[4rem]">
+      <nav className="flex flex-row justify-between items-center gap-[4rem] px-[2rem] w-full">
         <div>
-          <span className="os-header-font os-header-font-dark">시스템</span>
+          <Typograpy type="caption" className="font-medium">시스템</Typograpy>
         </div>
         <div className="flex flex-row gap-[1.2rem]">
-          <span className="os-header-font os-header-font-dark">{currentTime}</span>
+          <Typograpy type="caption" className="font-medium">{currentTime}</Typograpy>
           <button onClick={toggleDark}>
-            <span className="os-header-font os-header-font-dark">{isDark ? '☀️' : '🌙'}</span>
+            <Typograpy type="caption" className="font-medium">{isDark ? '☀️' : '🌙'}</Typograpy>
           </button>
         </div>
       </nav>

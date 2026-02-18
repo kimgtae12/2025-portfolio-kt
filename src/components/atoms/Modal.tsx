@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Resizable } from 're-resizable';
+import { Typograpy } from './Typograpy';
 
 interface ModalProps {
   isOpen: boolean;
@@ -113,10 +114,11 @@ export const Modal: React.FC<ModalProps> = ({
         className="modal-content maximized open" 
         style={{
           width: '100%',
-          height: '100%'
+          height: '100%',
+          zIndex
         }}
         data-modal-id={modalId}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {e.stopPropagation(); bringToFront();}}
       >
         <div 
           ref={headerRef}
@@ -129,14 +131,14 @@ export const Modal: React.FC<ModalProps> = ({
             <div className="modal-control minimize"></div>
             <div className="modal-control maximize" onClick={handleMaximize}></div>
           </div>
-          <div className="modal-title">{title}</div>
+          <Typograpy type="subtitle" className="modal-title">{title}</Typograpy>
           <div style={{ width: '60px' }}></div>
         </div>
         <div className="modal-body">
           {children}
         </div>
         <button className="modal-close" onClick={onClose}>
-          ×
+          <Typograpy type="body">×</Typograpy>
         </button>
       </div>
     )
@@ -177,7 +179,9 @@ export const Modal: React.FC<ModalProps> = ({
           height: '100%'
         }}
         data-modal-id={modalId}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {e.stopPropagation()
+          bringToFront();
+        }}
       >
         <div 
           ref={headerRef}
@@ -190,14 +194,14 @@ export const Modal: React.FC<ModalProps> = ({
             <div className="modal-control minimize"></div>
             <div className="modal-control maximize" onClick={handleMaximize}></div>
           </div>
-          <div className="modal-title">{title}</div>
+          <Typograpy type="caption" className="modal-title">{title}</Typograpy>
           <div style={{ width: '60px' }}></div>
         </div>
         <div className="modal-body">
           {children}
         </div>
         <button className="modal-close" onClick={onClose}>
-          ×
+          <Typograpy type="body">×</Typograpy>
         </button>
       </div>
       </Resizable>
