@@ -31,8 +31,8 @@ const Header: React.FC = () => {
 
 
   return (
-    <header className="os-header os-header-dark fixed top-0 left-0">
-      <nav className="flex flex-row w-full justify-between px-[2rem]">
+    <header className="os-header os-header-dark">
+      <nav className="flex flex-row w-full justify-between items-center px-[2rem] gap-[4rem]">
         <div>
           <span className="os-header-font os-header-font-dark">시스템</span>
         </div>

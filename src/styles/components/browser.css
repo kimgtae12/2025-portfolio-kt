@@ -1,0 +1,4 @@
+
+.browser-area {
+    @apply w-full h-screen pt-[4rem] pb-[11rem] fixed top-0 left-0;
+}

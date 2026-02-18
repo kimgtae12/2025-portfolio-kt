@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ic_profile from '../../assets/images/dockbar/ic_profile.png';
 import ic_skill from '../../assets/images/dockbar/ic_skill.png';
 import ic_history from '../../assets/images/dockbar/ic_history.png';
+import ic_github from '../../assets/images/dockbar/ic_github.png';
+import ic_tstory from '../../assets/images/dockbar/ic_tstory.png';
 interface IconProps {
   category: string;
   name: string;
@@ -15,7 +17,9 @@ const iconRegistry: Record<string, Record<string, { light: string; dark?: string
   dockbar: {
     ic_profile: { light: ic_profile, dark: ic_profile },
     ic_skill: { light: ic_skill, dark: ic_skill },
-    ic_history: { light: ic_history, dark: ic_history }
+    ic_history: { light: ic_history, dark: ic_history },
+    ic_github: { light: ic_github, dark: ic_github },
+    ic_tstory: { light: ic_tstory, dark: ic_tstory }
   }
 };
 
