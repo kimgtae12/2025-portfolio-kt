@@ -111,10 +111,6 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [isMaximized]);
 
-  useEffect(() => {
-    console.log('Modal mounted', minimizedModals);
-  }, [minimizedModals]);
-
   if (!isOpen || minimizedModals.has(modalId)) return null;
 
   if(isMaximized){

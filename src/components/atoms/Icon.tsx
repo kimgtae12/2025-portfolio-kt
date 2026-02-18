@@ -1,27 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { loadIcon } from 'utils/imageLoader';
 
-// Pre-import all available icons
-import ic_profile from '../../assets/images/dockbar/ic_profile.png';
-import ic_skill from '../../assets/images/dockbar/ic_skill.png';
-import ic_history from '../../assets/images/dockbar/ic_history.png';
-import ic_github from '../../assets/images/dockbar/ic_github.png';
-import ic_tstory from '../../assets/images/dockbar/ic_tstory.png';
 interface IconProps {
   category: string;
   name: string;
   className?: string;
 }
-
-// Icon registry
-const iconRegistry: Record<string, Record<string, { light: string; dark?: string }>> = {
-  dockbar: {
-    ic_profile: { light: ic_profile, dark: ic_profile },
-    ic_skill: { light: ic_skill, dark: ic_skill },
-    ic_history: { light: ic_history, dark: ic_history },
-    ic_github: { light: ic_github, dark: ic_github },
-    ic_tstory: { light: ic_tstory, dark: ic_tstory }
-  }
-};
 
 const Icon: React.FC<IconProps> = ({ 
   category, 
@@ -31,13 +15,14 @@ const Icon: React.FC<IconProps> = ({
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const getIconSrc = useCallback(() => {
-    const icons = iconRegistry[category];
-    if (!icons || !icons[name]) {
-      console.error(`Icon not found: ${category}/${name}`);
-      return null;
+    // Check for dark mode variant first
+    if (isDarkMode) {
+      const darkIconSrc = loadIcon(category, `${name}_dark`);
+      if (darkIconSrc) return darkIconSrc;
     }
-
-    return isDarkMode && icons[name].dark ? icons[name].dark : icons[name].light;
+    
+    // Fall back to regular icon
+    return loadIcon(category, name);
   }, [category, name, isDarkMode]);
 
   // 다크모드 변경 감지
@@ -70,7 +55,7 @@ const Icon: React.FC<IconProps> = ({
   const iconSrc = getIconSrc();
 
   if (!iconSrc) {
-    return <div className={` bg-red-300 ${className}`} />;
+    return <div className={`bg-red-300 ${className}`} />;
   }
 
   return (

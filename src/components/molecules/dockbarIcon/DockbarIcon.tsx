@@ -14,15 +14,15 @@ export const DockbarIcon : React.FC<DockbarIconProps> = ({ category, name, class
     const [isHovered, setIsHovered] = React.useState(false);
 
         return(
-            <div className="dock-icon" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={onClick}>
+            <div className="dock-icon dock-bar-icon-bg" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={onClick}>
             <Icon category={category} name={name} className={`w-auto h-full max-h-[100%] object-contain ${classNameProp}`} />
-            {/**{isHovered && (
-                <div className="tooltip">
+            {isHovered && (
+                <div className="tooltip dock-bar-icon-bg">
                     <span className="text-caption">
                     {label}
                     </span>
                 </div>
-            )}*/}
+            )}
         </div>
     );
 };
