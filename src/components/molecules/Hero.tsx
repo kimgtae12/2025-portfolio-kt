@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({
   onCtaClick,
 }) => {
   return (
-    <section className="min-h-screen flex items-center justify-center px-4">
+    <section className="flex items-center justify-center px-4">
     </section>
   );
 };
