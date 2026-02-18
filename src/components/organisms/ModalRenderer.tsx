@@ -39,7 +39,7 @@ export const ModalRenderer: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-[calc(100vh-14rem)] relative">
+    <div className="relative w-full h-[calc(100vh-14rem)]">
       {Array.from(openModals).map(modalName => (
         <Modal
           key={modalName}

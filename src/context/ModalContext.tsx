@@ -2,14 +2,18 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface ModalState {
   openModals: Set<string>;
+  minimizedModals: Set<string>;
   modalZIndex: { [key: string]: number };
 }
 
 interface ModalContextType {
   openModals: Set<string>;
+  minimizedModals: Set<string>;
   modalZIndex: { [key: string]: number };
   openModal: (modalName: string) => void;
   closeModal: (modalName: string) => void;
+  minimizeModal: (modalName: string) => void;
+  restoreModal: (modalName: string) => void;
   bringToFront: (modalName: string) => void;
   getModalTitle: (modalName: string) => string;
 }
@@ -30,6 +34,7 @@ interface ModalProviderProps {
 
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   const [openModals, setOpenModals] = useState<Set<string>>(new Set());
+  const [minimizedModals, setMinimizedModals] = useState<Set<string>>(new Set());
   const [modalZIndex, setModalZIndex] = useState<{ [key: string]: number }>({});
 
   const openModal = (modalName: string) => {
@@ -46,6 +51,19 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
       newSet.delete(modalName);
       return newSet;
     });
+  };
+
+  const minimizeModal = (modalName: string) => {
+    setMinimizedModals(prev => new Set(prev).add(modalName));
+  };
+
+  const restoreModal = (modalName: string) => {
+    setMinimizedModals(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(modalName);
+      return newSet;
+    });
+    bringToFront(modalName);
   };
 
   const bringToFront = (modalName: string) => {
@@ -69,9 +87,12 @@ export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   return (
     <ModalContext.Provider value={{
       openModals,
+      minimizedModals,
       modalZIndex,
       openModal,
       closeModal,
+      minimizeModal,
+      restoreModal,
       bringToFront,
       getModalTitle
     }}>

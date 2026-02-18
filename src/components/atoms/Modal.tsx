@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Resizable } from 're-resizable';
 import { Typograpy } from './Typograpy';
+import { useModal } from 'context/ModalContext';
 
 interface ModalProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ export const Modal: React.FC<ModalProps> = ({
   title = "앱" ,
   bringToFront
 }) => {
+  const { minimizeModal , minimizedModals } = useModal();
   const modalRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
@@ -87,6 +89,10 @@ export const Modal: React.FC<ModalProps> = ({
     setIsMaximized(!isMaximized);
   }
 
+  const handleMinimize = () => {
+    minimizeModal(modalId);
+  };
+
   useEffect(() => {
     if (isOpen && modalRef.current) {
       setTimeout(() => {
@@ -105,7 +111,11 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [isMaximized]);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    console.log('Modal mounted', minimizedModals);
+  }, [minimizedModals]);
+
+  if (!isOpen || minimizedModals.has(modalId)) return null;
 
   if(isMaximized){
     return(
@@ -128,7 +138,7 @@ export const Modal: React.FC<ModalProps> = ({
         >
           <div className="modal-controls">
             <div className="modal-control close" onClick={onClose}></div>
-            <div className="modal-control minimize"></div>
+            <div className="modal-control minimize" onClick={handleMinimize}></div>
             <div className="modal-control maximize" onClick={handleMaximize}></div>
           </div>
           <Typograpy type="subtitle" className="modal-title">{title}</Typograpy>
@@ -191,7 +201,7 @@ export const Modal: React.FC<ModalProps> = ({
         >
           <div className="modal-controls">
             <div className="modal-control close" onClick={onClose}></div>
-            <div className="modal-control minimize"></div>
+            <div className="modal-control minimize" onClick={handleMinimize}></div>
             <div className="modal-control maximize" onClick={handleMaximize}></div>
           </div>
           <Typograpy type="caption" className="modal-title">{title}</Typograpy>
