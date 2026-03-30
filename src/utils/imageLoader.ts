@@ -4,14 +4,14 @@ export const loadImage = (path: string): string => {
     return require(`../assets/images/${path}`);
   } catch (error) {
     console.error(`Image not found: ${path}`, error);
-    return '';
+    return "";
   }
 };
 
 // Icon-specific loader
 export const loadIcon = (category: string, iconName: string): string => {
-  const extensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp'];
-  
+  const extensions = [".png", ".jpg", ".jpeg", ".svg", ".webp"];
+
   for (const ext of extensions) {
     try {
       return require(`../assets/images/${category}/${iconName}${ext}`);
@@ -19,18 +19,20 @@ export const loadIcon = (category: string, iconName: string): string => {
       // Try next extension
     }
   }
-  
-  console.error(`Icon not found: ${category}/${iconName}`);
-  return '';
+
+  return "";
 };
 
 // Batch loader for multiple icons
-export const loadIcons = (category: string, iconNames: string[]): Record<string, string> => {
+export const loadIcons = (
+  category: string,
+  iconNames: string[],
+): Record<string, string> => {
   const result: Record<string, string> = {};
-  
-  iconNames.forEach(name => {
+
+  iconNames.forEach((name) => {
     result[name] = loadIcon(category, name);
   });
-  
+
   return result;
 };

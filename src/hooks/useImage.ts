@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { loadImage } from 'utils/imageLoader';
+import { useState, useEffect } from "react";
+import { loadImage } from "utils/imageLoader";
 
 export const useImage = (path: string) => {
-  const [src, setSrc] = useState<string>('');
+  const [src, setSrc] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const useImage = (path: string) => {
 };
 
 export const useIcon = (category: string, iconName: string) => {
-  const [src, setSrc] = useState<string>('');
+  const [src, setSrc] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
