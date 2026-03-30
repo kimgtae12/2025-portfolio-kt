@@ -1,66 +1,60 @@
-import Icon from 'components/atoms/Icon';
-import { DockbarIcon } from 'components/molecules/dockbarIcon/DockbarIcon';
-import React from 'react';
-import { useModal } from 'context/ModalContext';
-import { WEB_LINKS } from 'utils/mapping';
+import React from "react";
+import { contactLinks, desktopWindows, WindowId } from "data/portfolioData";
+import { useModal } from "context/ModalContext";
 
-export const DockBar : React.FC = () => {
-    const { openModal, restoreModal,minimizedModals } = useModal();
+const externalDockItems = [
+  { label: "GitHub", shortLabel: "GitHub", href: contactLinks[1].href },
+  { label: "Blog", shortLabel: "Blog", href: contactLinks[2].href },
+  { label: "Email", shortLabel: "Email", href: contactLinks[0].href },
+];
 
-    const handleLinkWeb = (type : 'github' | 'tistory') => {
-        window.open(WEB_LINKS[type]);
-    }
+export const DockBar: React.FC = () => {
+  const { openWindow, restoreWindow, windows } = useModal();
 
-    const appList = [
-        {
-            name: 'profile',
-            label: '프로필',
-            icon: 'ic_profile'
-        },
-        {
-            name: 'skill',
-            label: '사용기술',
-            icon: 'ic_skill'
-        },
-        {
-            name: 'history',
-            label: '경력',
-            icon: 'ic_history'
-        }
-    ]
+  return (
+    <nav className="dock glass-panel" aria-label="Portfolio dock">
+      {desktopWindows
+        .sort((a, b) => a.dockOrder - b.dockOrder)
+        .map((item) => {
+          const windowState = windows[item.id];
+          const isRunning = windowState.isOpen;
+          const isActive = isRunning && !windowState.isMinimized;
 
-    return (
-        <div className="dock-bar-container">
-        <div className="dock-bar">
-            {appList.map((app) => (
-                <DockbarIcon 
-                    key={app.name}
-                    category="dockbar" 
-                    name={app.icon} 
-                    label={app.label}
-                    onClick={() => {
-                        if(minimizedModals.has(app.name)) {
-                            restoreModal(app.name)
-                        } else {
-                            openModal(app.name)
-                        }
-                    }}
-                />
-            ))}
-            <div className="divider"></div>
-            <DockbarIcon 
-                category='dockbar'
-                name='ic_github'
-                label='Git Hub'
-                onClick={() => handleLinkWeb('github')}
-            />
-            <DockbarIcon 
-                category='dockbar'
-                name='ic_tstory'
-                label='티스토리'
-                onClick={() => handleLinkWeb('tistory')}
-            />
-        </div>
-        </div>
-    )
-}
+          return (
+            <button
+              key={item.id}
+              className={`dock__item ${isActive ? "is-active" : ""}`}
+              onClick={() =>
+                windowState.isMinimized
+                  ? restoreWindow(item.id as WindowId)
+                  : openWindow(item.id as WindowId)
+              }
+              title={item.label}
+              type="button"
+            >
+              <span className="dock__icon" style={{ background: item.accent }}>
+                {item.shortLabel}
+              </span>
+              <span className="dock__tooltip">{item.label}</span>
+              {isRunning && <span className="dock__indicator" />}
+            </button>
+          );
+        })}
+
+      <span className="dock__separator" />
+
+      {externalDockItems.map((item) => (
+        <a
+          key={item.label}
+          className="dock__item is-link"
+          href={item.href}
+          rel="noreferrer"
+          target="_blank"
+        >
+          <span className="dock__icon dock__icon--link">{item.shortLabel}</span>
+          <span className="dock__tooltip">{item.label}</span>
+        </a>
+      ))}
+    </nav>
+  );
+};

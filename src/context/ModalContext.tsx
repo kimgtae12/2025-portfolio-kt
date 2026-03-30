@@ -1,102 +1,206 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { desktopWindows, WindowId } from 'data/portfolioData';
 
-interface ModalState {
-  openModals: Set<string>;
-  minimizedModals: Set<string>;
-  modalZIndex: { [key: string]: number };
+export interface WindowState {
+  isOpen: boolean;
+  isMinimized: boolean;
+  isMaximized: boolean;
+  zIndex: number;
+  position: { x: number; y: number };
+  size: { width: number; height: number };
 }
 
+type WindowMap = Record<WindowId, WindowState>;
+
 interface ModalContextType {
-  openModals: Set<string>;
-  minimizedModals: Set<string>;
-  modalZIndex: { [key: string]: number };
-  openModal: (modalName: string) => void;
-  closeModal: (modalName: string) => void;
-  minimizeModal: (modalName: string) => void;
-  restoreModal: (modalName: string) => void;
-  bringToFront: (modalName: string) => void;
-  getModalTitle: (modalName: string) => string;
+  windows: WindowMap;
+  activeWindowId: WindowId | null;
+  openWindow: (id: WindowId) => void;
+  closeWindow: (id: WindowId) => void;
+  minimizeWindow: (id: WindowId) => void;
+  restoreWindow: (id: WindowId) => void;
+  focusWindow: (id: WindowId) => void;
+  toggleMaximizeWindow: (id: WindowId) => void;
+  updateWindowPosition: (id: WindowId, position: { x: number; y: number }) => void;
+  updateWindowSize: (id: WindowId, size: { width: number; height: number }) => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
+const MIN_Z_INDEX = 20;
+
+const createInitialWindows = (): WindowMap =>
+  desktopWindows.reduce((acc, windowConfig, index) => {
+    acc[windowConfig.id] = {
+      isOpen: windowConfig.id === 'projects' || windowConfig.id === 'about',
+      isMinimized: false,
+      isMaximized: false,
+      zIndex: MIN_Z_INDEX + index,
+      position: windowConfig.defaultPosition,
+      size: windowConfig.defaultSize,
+    };
+
+    return acc;
+  }, {} as WindowMap);
+
 export const useModal = () => {
   const context = useContext(ModalContext);
+
   if (!context) {
     throw new Error('useModal must be used within a ModalProvider');
   }
+
   return context;
 };
 
-interface ModalProviderProps {
-  children: ReactNode;
-}
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [windows, setWindows] = useState<WindowMap>(createInitialWindows);
+  const [activeWindowId, setActiveWindowId] = useState<WindowId | null>('projects');
 
-export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-  const [openModals, setOpenModals] = useState<Set<string>>(new Set());
-  const [minimizedModals, setMinimizedModals] = useState<Set<string>>(new Set());
-  const [modalZIndex, setModalZIndex] = useState<{ [key: string]: number }>({});
+  const bringToFront = useCallback((id: WindowId, nextState?: Partial<WindowState>) => {
+    setWindows((prev) => {
+      const nextZIndex = Math.max(...Object.values(prev).map((windowState) => windowState.zIndex)) + 1;
 
-  const openModal = (modalName: string) => {
-    setOpenModals(prev => new Set(prev).add(modalName));
-    setModalZIndex(prev => ({
-      ...prev,
-      [modalName]: Math.max(...Object.values(prev), 50) + 10
-    }));
-  };
-
-  const closeModal = (modalName: string) => {
-    setOpenModals(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(modalName);
-      return newSet;
+      return {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          ...nextState,
+          zIndex: nextZIndex,
+        },
+      };
     });
-  };
 
-  const minimizeModal = (modalName: string) => {
-    setMinimizedModals(prev => new Set(prev).add(modalName));
-  };
+    setActiveWindowId(id);
+  }, []);
 
-  const restoreModal = (modalName: string) => {
-    setMinimizedModals(prev => {
-      const newSet = new Set(prev);
-      newSet.delete(modalName);
-      return newSet;
+  const openWindow = useCallback((id: WindowId) => {
+    bringToFront(id, {
+      isOpen: true,
+      isMinimized: false,
     });
-    bringToFront(modalName);
-  };
+  }, [bringToFront]);
 
-  const bringToFront = (modalName: string) => {
-    setModalZIndex(prev => ({
+  const closeWindow = useCallback((id: WindowId) => {
+    setWindows((prev) => ({
       ...prev,
-      [modalName]: Math.max(...Object.values(prev)) + 10
+      [id]: {
+        ...prev[id],
+        isOpen: false,
+        isMinimized: false,
+      },
     }));
-  };
 
-  const getModalTitle = (modalName: string) => {
-    const titles: { [key: string]: string } = {
-      profile: '프로필',
-      skill: '사용 기술',
-      history: '경력',
-      github: 'GitHub',
-      tstory: '티스토리 블로그'
+    setActiveWindowId((prev) => (prev === id ? null : prev));
+  }, []);
+
+  const minimizeWindow = useCallback((id: WindowId) => {
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        isMinimized: true,
+      },
+    }));
+
+    setActiveWindowId((prev) => (prev === id ? null : prev));
+  }, []);
+
+  const restoreWindow = useCallback((id: WindowId) => {
+    bringToFront(id, {
+      isOpen: true,
+      isMinimized: false,
+    });
+  }, [bringToFront]);
+
+  const focusWindow = useCallback((id: WindowId) => {
+    if (!windows[id].isOpen || windows[id].isMinimized) {
+      restoreWindow(id);
+      return;
+    }
+
+    bringToFront(id);
+  }, [bringToFront, restoreWindow, windows]);
+
+  const toggleMaximizeWindow = useCallback((id: WindowId) => {
+    bringToFront(id, {
+      isMaximized: !windows[id].isMaximized,
+      isMinimized: false,
+    });
+  }, [bringToFront, windows]);
+
+  const updateWindowPosition = useCallback((id: WindowId, position: { x: number; y: number }) => {
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        position,
+      },
+    }));
+  }, []);
+
+  const updateWindowSize = useCallback((id: WindowId, size: { width: number; height: number }) => {
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        size,
+      },
+    }));
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const keyMap: Record<string, WindowId> = {
+        '1': 'projects',
+        '2': 'about',
+        '3': 'skills',
+        '4': 'resume',
+        '5': 'contact',
+        '6': 'archive',
+      };
+
+      if ((event.metaKey || event.ctrlKey) && keyMap[event.key]) {
+        event.preventDefault();
+        openWindow(keyMap[event.key]);
+      }
+
+      if (event.key === 'Escape' && activeWindowId) {
+        closeWindow(activeWindowId);
+      }
     };
-    return titles[modalName] || '앱';
-  };
 
-  return (
-    <ModalContext.Provider value={{
-      openModals,
-      minimizedModals,
-      modalZIndex,
-      openModal,
-      closeModal,
-      minimizeModal,
-      restoreModal,
-      bringToFront,
-      getModalTitle
-    }}>
-      {children}
-    </ModalContext.Provider>
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeWindowId, closeWindow, openWindow]);
+
+  const value = useMemo(
+    () => ({
+      windows,
+      activeWindowId,
+      openWindow,
+      closeWindow,
+      minimizeWindow,
+      restoreWindow,
+      focusWindow,
+      toggleMaximizeWindow,
+      updateWindowPosition,
+      updateWindowSize,
+    }),
+    [
+      activeWindowId,
+      closeWindow,
+      focusWindow,
+      minimizeWindow,
+      openWindow,
+      restoreWindow,
+      toggleMaximizeWindow,
+      updateWindowPosition,
+      updateWindowSize,
+      windows,
+    ],
   );
+
+  return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
 };

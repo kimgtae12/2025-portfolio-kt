@@ -1,49 +1,21 @@
-import { Typograpy } from 'components/atoms/Typograpy';
+import React from 'react';
 import { useGetNowTime } from 'hook/useGetNowTime';
-import React, { useState } from 'react';
 
 const Header: React.FC = () => {
-
-    const [isDark, setIsDark] = useState(false);
-    const currentTime = useGetNowTime();
-
-      const toggleDark = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    
-    if (newTheme) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
-
-
-  React.useEffect(() => {
-    // 저장된 테마 불러오기
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
-  }, []);
-
+  const currentTime = useGetNowTime();
 
   return (
-    <header className="os-header os-header-dark">
-      <nav className="flex flex-row justify-between items-center gap-[4rem] px-[2rem] w-full">
-        <div>
-          <Typograpy type="caption" className="font-medium">시스템</Typograpy>
-        </div>
-        <div className="flex flex-row gap-[1.2rem]">
-          <Typograpy type="caption" className="font-medium">{currentTime}</Typograpy>
-          <button onClick={toggleDark}>
-            <Typograpy type="caption" className="font-medium">{isDark ? '☀️' : '🌙'}</Typograpy>
-          </button>
-        </div>
-      </nav>
+    <header className="topbar glass-panel">
+      <div className="topbar__left">
+        <span className="topbar__brand">KT Portfolio OS</span>
+        <span className="topbar__divider" />
+        <span className="topbar__meta">Frontend Developer · 4년 2개월</span>
+      </div>
+
+      <div className="topbar__right">
+        <span className="soft-label mono">⌘ 1-6 빠른 열기</span>
+        <span className="soft-label mono">{currentTime}</span>
+      </div>
     </header>
   );
 };
