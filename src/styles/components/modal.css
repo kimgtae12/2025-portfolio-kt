@@ -2,130 +2,131 @@
 @tailwind components;
 
 @layer components {
-.modal-container {
-  @apply flex flex-col w-full h-full;
-  perspective: 1000px;
-}
+  .modal-container {
+    @apply flex flex-col w-full h-full;
+    perspective: 1000px;
+  }
 
-.maximized {
-  @apply w-full h-[100%];
-}
+  .maximized {
+    @apply w-full h-[100%];
+  }
 
-/* re-resizable 핸들 스타일 */
-.resize-handle {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.3);
-  /* border: 1px solid rgba(255, 255, 255, 0.5); */
-}
+  /* re-resizable 핸들 스타일 */
+  .resize-handle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    /* border: 1px solid rgba(255, 255, 255, 0.5); */
+  }
 
-.resize-n {
-  top: 0;
-  left: 10px;
-  right: 10px;
-  cursor: n-resize;
-}
+  .resize-n {
+    top: 0;
+    left: 10px;
+    right: 10px;
+    cursor: n-resize;
+  }
 
-.resize-s {
-  bottom: 0;
-  left: 10px;
-  right: 10px;
-  cursor: s-resize;
-}
+  .resize-s {
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    cursor: s-resize;
+  }
 
-.resize-e {
-  top: 10px;
-  right: 0;
-  bottom: 10px;
-  cursor: e-resize;
-}
+  .resize-e {
+    top: 10px;
+    right: 0;
+    bottom: 10px;
+    cursor: e-resize;
+  }
 
-.resize-w {
-  top: 10px;
-  left: 0;
-  bottom: 10px;
-  cursor: w-resize;
-}
+  .resize-w {
+    top: 10px;
+    left: 0;
+    bottom: 10px;
+    cursor: w-resize;
+  }
 
-.resize-ne {
-  top: 0;
-  right: 0;
-  cursor: ne-resize;
-}
+  .resize-ne {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+  }
 
-.resize-nw {
-  top: 0;
-  left: 0;
-  cursor: nw-resize;
-}
+  .resize-nw {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+  }
 
-.resize-se {
-  bottom: 0;
-  right: 0;
-  cursor: se-resize;
-}
+  .resize-se {
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+  }
 
-.resize-sw {
-  bottom: 0;
-  left: 0;
-  cursor: sw-resize;
-}
+  .resize-sw {
+    bottom: 0;
+    left: 0;
+    cursor: sw-resize;
+  }
 
-.resize-handle:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
+  .resize-handle:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
 
-.modal-content {
-  @apply bg-white dark:bg-gray-800 rounded-t-lg shadow-2xl border border-gray-200 dark:border-gray-700
+  .modal-content {
+    @apply bg-white dark:bg-gray-800 rounded-t-lg shadow-2xl border border-gray-200 dark:border-gray-700
          mx-4 overflow-hidden;
-  position: absolute;
-  transform: translate(-50%, -50%) scale(0.8) rotateX(10deg);
-  top: 50%;
-  left: 50%;
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform-origin: center center;
-}
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0.8) rotateX(10deg);
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center center;
+  }
 
-.modal-content.open {
-  transform: translate(-50%, -50%) scale(1) rotateX(0deg);
-  opacity: 1;
-  margin:0;
-}
+  .modal-content.open {
+    transform: translate(-50%, -50%) scale(1) rotateX(0deg);
+    opacity: 1;
+    margin: 0;
+  }
 
-.modal-header {
-  @apply bg-gray-100 dark:bg-gray-700 px-4 py-2 border-b border-gray-200 dark:border-gray-600
+  .modal-header {
+    @apply bg-gray-100 dark:bg-gray-700 px-4 py-2 border-b border-gray-200 dark:border-gray-600
          flex items-center justify-between;
-}
+  }
 
-.modal-title {
-  @apply  flex-1 font-medium text-gray-700 dark:text-gray-300 text-center;
-}
+  .modal-title {
+    @apply flex-1 font-medium text-gray-700 dark:text-gray-300 text-center;
+  }
 
-.modal-controls {
-  @apply flex gap-2;
-}
+  .modal-controls {
+    @apply flex gap-2;
+  }
 
-.modal-control {
-  @apply rounded-full w-4 h-4 hover:scale-110 transition-all cursor-pointer;
-}
+  .modal-control {
+    @apply rounded-full w-4 h-4 hover:scale-110 transition-all cursor-pointer;
+  }
 
-.modal-control.close {
-  @apply bg-red-500 hover:bg-red-600;
-}
+  .modal-control.close {
+    @apply bg-red-500 hover:bg-red-600;
+  }
 
-.modal-control.minimize {
-  @apply bg-yellow-500 hover:bg-yellow-600;
-}
+  .modal-control.minimize {
+    @apply bg-yellow-500 hover:bg-yellow-600;
+  }
 
-.modal-control.maximize {
-  @apply bg-green-500 hover:bg-green-600;
-}
+  .modal-control.maximize {
+    @apply bg-green-500 hover:bg-green-600;
+  }
 
-.modal-body {
-  @apply p-6 max-h-[calc(85vh-60px)] overflow-y-auto;
-}
+  .modal-body {
+    @apply p-0 overflow-y-auto;
+    height: 100%;
+  }
 
-.modal-close {
-  display: none;
-}
+  .modal-close {
+    display: none;
+  }
 }
