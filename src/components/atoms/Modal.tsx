@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Typograpy } from 'components/atoms/Typograpy';
 import { motion } from 'framer-motion';
 import { Resizable } from 're-resizable';
 import { WindowId } from 'data/portfolioData';
@@ -132,10 +133,14 @@ export const Modal: React.FC<ModalProps> = ({
 
             <div className="window-header__title-group">
               <strong>{title}</strong>
-              <span>{description}</span>
+              <Typograpy as="span" type="caption">
+                {description}
+              </Typograpy>
             </div>
 
-            <div className="window-header__meta mono">{modalId.toUpperCase()}</div>
+            <Typograpy as="div" className="window-header__meta mono" type="caption">
+              {modalId.toUpperCase()}
+            </Typograpy>
           </div>
 
           <div className="window-body">{children}</div>
@@ -207,10 +212,14 @@ export const Modal: React.FC<ModalProps> = ({
 
               <div className="window-header__title-group">
                 <strong>{title}</strong>
-                <span>{description}</span>
+                <Typograpy as="span" type="caption">
+                  {description}
+                </Typograpy>
               </div>
 
-              <div className="window-header__meta mono">{modalId.toUpperCase()}</div>
+              <Typograpy as="div" className="window-header__meta mono" type="caption">
+                {modalId.toUpperCase()}
+              </Typograpy>
             </div>
 
             <div className="window-body">{children}</div>
