@@ -1,10 +1,12 @@
 import React from "react";
+import { Typograpy } from "components/atoms/Typograpy";
 import { contactLinks, desktopWindows, WindowId } from "data/portfolioData";
 import { useModal } from "context/ModalContext";
 
 const externalDockItems = [
   { label: "GitHub", shortLabel: "GitHub", href: contactLinks[1].href },
-  { label: "Blog", shortLabel: "Blog", href: contactLinks[2].href },
+  { label: "TBlog", shortLabel: "TBlog", href: contactLinks[2].href },
+  { label: "DBlog", shortLabel: "DBlog", href: contactLinks[3].href },
   { label: "Email", shortLabel: "Email", href: contactLinks[0].href },
 ];
 
@@ -32,10 +34,17 @@ export const DockBar: React.FC = () => {
               title={item.label}
               type="button"
             >
-              <span className="dock__icon" style={{ background: item.accent }}>
+              <Typograpy
+                as="span"
+                className="dock__icon"
+                style={{ background: item.accent }}
+                type="caption"
+              >
                 {item.shortLabel}
-              </span>
-              <span className="dock__tooltip">{item.label}</span>
+              </Typograpy>
+              <Typograpy as="span" className="dock__tooltip" type="caption">
+                {item.label}
+              </Typograpy>
               {isRunning && <span className="dock__indicator" />}
             </button>
           );
@@ -51,8 +60,12 @@ export const DockBar: React.FC = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <span className="dock__icon dock__icon--link">{item.shortLabel}</span>
-          <span className="dock__tooltip">{item.label}</span>
+          <Typograpy as="span" className="dock__icon dock__icon--link" type="caption">
+            {item.shortLabel}
+          </Typograpy>
+          <Typograpy as="span" className="dock__tooltip" type="caption">
+            {item.label}
+          </Typograpy>
         </a>
       ))}
     </nav>
