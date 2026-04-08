@@ -1,5 +1,6 @@
-import React from 'react';
-import { useGetNowTime } from 'hook/useGetNowTime';
+import React from "react";
+import { Typograpy } from "components/atoms/Typograpy";
+import { useGetNowTime } from "hook/useGetNowTime";
 
 const Header: React.FC = () => {
   const currentTime = useGetNowTime();
@@ -7,14 +8,26 @@ const Header: React.FC = () => {
   return (
     <header className="topbar glass-panel">
       <div className="topbar__left">
-        <span className="topbar__brand">KT Portfolio OS</span>
+        <Typograpy
+          as="span"
+          className="text-white topbar__brand"
+          type="caption"
+        >
+          KT Portfolio OS
+        </Typograpy>
         <span className="topbar__divider" />
-        <span className="topbar__meta">Frontend Developer · 4년 2개월</span>
+        <Typograpy as="span" className="topbar__meta" type="caption">
+          Frontend Developer · 4년 2개월
+        </Typograpy>
       </div>
 
       <div className="topbar__right">
-        <span className="soft-label mono">⌘ 1-6 빠른 열기</span>
-        <span className="soft-label mono">{currentTime}</span>
+        <Typograpy as="span" className="soft-label mono" type="caption">
+          ⌘ 1-6 빠른 열기
+        </Typograpy>
+        <Typograpy as="span" className="soft-label mono" type="caption">
+          {currentTime}
+        </Typograpy>
       </div>
     </header>
   );

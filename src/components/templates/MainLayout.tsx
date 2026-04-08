@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Typograpy } from "components/atoms/Typograpy";
 import Header from "../organisms/Header";
 import { ModalProvider, useModal } from "context/ModalContext";
 import {
@@ -20,11 +21,15 @@ interface MainLayoutProps {
 const BootScreen: React.FC<{ done: boolean }> = ({ done }) => (
   <div className={`boot-screen ${done ? "is-hidden" : ""}`}>
     <div className="boot-screen__content">
-      <span className="boot-screen__logo mono">KT / Portfolio OS</span>
+      <Typograpy as="span" className="boot-screen__logo mono" type="caption">
+        KT / Portfolio OS
+      </Typograpy>
       <div className="boot-screen__bar">
         <div className="boot-screen__bar-fill" />
       </div>
-      <p>프로젝트 중심 포트폴리오를 불러오는 중…</p>
+      <Typograpy as="p" type="body">
+        불러오는 중…
+      </Typograpy>
     </div>
   </div>
 );
@@ -32,16 +37,20 @@ const BootScreen: React.FC<{ done: boolean }> = ({ done }) => (
 const MobilePortfolio: React.FC = () => (
   <div className="mobile-portfolio">
     <section className="mobile-hero glass-panel">
-      <span className="soft-label mono">Frontend Developer</span>
+      <Typograpy as="span" className="soft-label mono" type="caption">
+        Frontend Developer
+      </Typograpy>
       <h1>실무 구조와 구현 디테일을 함께 챙기는 프론트엔드 개발자</h1>
-      <p>
+      <Typograpy as="p" type="body">
         대표 프로젝트 4개를 중심으로 역할, 문제 해결, 결과를 빠르게 확인할 수
         있도록 재구성한 모바일 포트폴리오입니다.
-      </p>
+      </Typograpy>
       <div className="mobile-hero__stats">
         {quickStats.map((item) => (
           <div key={item.label}>
-            <span>{item.label}</span>
+            <Typograpy as="span" type="caption">
+              {item.label}
+            </Typograpy>
             <strong>{item.value}</strong>
           </div>
         ))}
@@ -50,29 +59,43 @@ const MobilePortfolio: React.FC = () => (
 
     <section className="mobile-section">
       <div className="mobile-section__heading">
-        <span className="mono">PROJECTS</span>
+        <Typograpy as="span" className="mono" type="caption">
+          PROJECTS
+        </Typograpy>
         <h2>대표 프로젝트 4개</h2>
       </div>
       <div className="mobile-card-list">
         {projects.map((project) => (
           <article key={project.id} className="content-card">
             <div className="content-card__header">
-              <span className="mono">{project.category}</span>
+              <Typograpy as="span" className="mono" type="caption">
+                {project.category}
+              </Typograpy>
               <strong>{project.title}</strong>
             </div>
-            <p>{project.summary}</p>
+            <Typograpy as="p" type="body">
+              {project.summary}
+            </Typograpy>
             <div className="project-summary-grid">
               <div>
-                <span>기간</span>
+                <Typograpy as="span" type="caption">
+                  기간
+                </Typograpy>
                 <strong>{project.period}</strong>
               </div>
               <div>
-                <span>역할</span>
+                <Typograpy as="span" type="caption">
+                  역할
+                </Typograpy>
                 <strong>{project.role}</strong>
               </div>
             </div>
-            <p>{project.problem}</p>
-            <p>{project.solution}</p>
+            <Typograpy as="p" type="body">
+              {project.problem}
+            </Typograpy>
+            <Typograpy as="p" type="body">
+              {project.solution}
+            </Typograpy>
           </article>
         ))}
       </div>
@@ -80,20 +103,26 @@ const MobilePortfolio: React.FC = () => (
 
     <section className="mobile-section">
       <div className="mobile-section__heading">
-        <span className="mono">SKILLS</span>
+        <Typograpy as="span" className="mono" type="caption">
+          SKILLS
+        </Typograpy>
         <h2>실무 사용 맥락</h2>
       </div>
       {skillGroups.map((group) => (
         <article key={group.title} className="content-card">
           <div className="content-card__header">
-            <span className="mono">{group.title.toUpperCase()}</span>
+            <Typograpy as="span" className="mono" type="caption">
+              {group.title.toUpperCase()}
+            </Typograpy>
             <strong>{group.title}</strong>
           </div>
           <div className="info-grid">
             {group.items.map((item) => (
               <div key={item.name} className="mini-card">
                 <strong>{item.name}</strong>
-                <p>{item.description}</p>
+                <Typograpy as="p" type="body">
+                  {item.description}
+                </Typograpy>
               </div>
             ))}
           </div>
@@ -101,31 +130,42 @@ const MobilePortfolio: React.FC = () => (
       ))}
     </section>
 
-    <section className="mobile-section">
+    {/* <section className="mobile-section">
       <div className="mobile-section__heading">
-        <span className="mono">ARCHIVE</span>
+        <Typograpy as="span" className="mono" type="caption">
+          ARCHIVE
+        </Typograpy>
         <h2>문서와 링크</h2>
       </div>
       {archiveGroups.map((group) => (
         <article key={group.title} className="content-card">
           <div className="content-card__header">
-            <span className="mono">{group.title.toUpperCase()}</span>
+            <Typograpy as="span" className="mono" type="caption">
+              {group.title.toUpperCase()}
+            </Typograpy>
             <strong>{group.title}</strong>
           </div>
           <div className="tag-group">
             {group.items.map((item) => (
-              <span key={item} className="tag-chip">
+              <Typograpy
+                as="span"
+                key={item}
+                className="tag-chip"
+                type="caption"
+              >
                 {item}
-              </span>
+              </Typograpy>
             ))}
           </div>
         </article>
       ))}
-    </section>
+    </section> */}
 
     <section className="mobile-section">
       <div className="mobile-section__heading">
-        <span className="mono">CONTACT</span>
+        <Typograpy as="span" className="mono" type="caption">
+          CONTACT
+        </Typograpy>
         <h2>바로 연락하기</h2>
       </div>
       <div className="info-grid">
@@ -138,7 +178,9 @@ const MobilePortfolio: React.FC = () => (
             target="_blank"
           >
             <strong>{link.label}</strong>
-            <span>{link.caption}</span>
+            <Typograpy as="span" type="body">
+              {link.caption}
+            </Typograpy>
           </a>
         ))}
       </div>
@@ -155,14 +197,16 @@ const DesktopPortfolio: React.FC = () => {
       <DesktopIcons />
       <DesktopSummary />
 
-      <button
+      {/* <button
         className="desktop-hint glass-panel"
         onClick={() => openWindow("archive")}
         type="button"
       >
-        <span className="mono">Quick Access</span>
+        <Typograpy as="span" className="mono" type="caption">
+          Quick Access
+        </Typograpy>
         <strong>Archive에서 전체 탐색</strong>
-      </button>
+      </button> */}
 
       <ModalRenderer />
       <DockBar />
