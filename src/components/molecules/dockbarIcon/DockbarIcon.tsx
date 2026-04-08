@@ -1,4 +1,5 @@
 import Icon from 'components/atoms/Icon';
+import { Typograpy } from 'components/atoms/Typograpy';
 import React, { useState } from 'react';
 
 interface DockbarIconProps {
@@ -18,9 +19,9 @@ export const DockbarIcon : React.FC<DockbarIconProps> = ({ category, name, class
             <Icon category={category} name={name} className={`w-auto h-full max-h-[100%] object-contain ${classNameProp}`} />
             {isHovered && (
                 <div className="tooltip dock-bar-icon-bg">
-                    <span className="text-caption">
+                    <Typograpy as="span" className="text-caption" type="caption">
                     {label}
-                    </span>
+                    </Typograpy>
                 </div>
             )}
         </div>
