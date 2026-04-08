@@ -1,5 +1,13 @@
-import React, { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { desktopWindows, WindowId } from 'data/portfolioData';
+import React, {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { desktopWindows, WindowId } from "data/portfolioData";
 
 export interface WindowState {
   isOpen: boolean;
@@ -21,8 +29,14 @@ interface ModalContextType {
   restoreWindow: (id: WindowId) => void;
   focusWindow: (id: WindowId) => void;
   toggleMaximizeWindow: (id: WindowId) => void;
-  updateWindowPosition: (id: WindowId, position: { x: number; y: number }) => void;
-  updateWindowSize: (id: WindowId, size: { width: number; height: number }) => void;
+  updateWindowPosition: (
+    id: WindowId,
+    position: { x: number; y: number },
+  ) => void;
+  updateWindowSize: (
+    id: WindowId,
+    size: { width: number; height: number },
+  ) => void;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -32,7 +46,7 @@ const MIN_Z_INDEX = 20;
 const createInitialWindows = (): WindowMap =>
   desktopWindows.reduce((acc, windowConfig, index) => {
     acc[windowConfig.id] = {
-      isOpen: windowConfig.id === 'projects' || windowConfig.id === 'about',
+      isOpen: false,
       isMinimized: false,
       isMaximized: false,
       zIndex: MIN_Z_INDEX + index,
@@ -47,39 +61,52 @@ export const useModal = () => {
   const context = useContext(ModalContext);
 
   if (!context) {
-    throw new Error('useModal must be used within a ModalProvider');
+    throw new Error("useModal must be used within a ModalProvider");
   }
 
   return context;
 };
 
-export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [windows, setWindows] = useState<WindowMap>(createInitialWindows);
-  const [activeWindowId, setActiveWindowId] = useState<WindowId | null>('projects');
+  const [activeWindowId, setActiveWindowId] = useState<WindowId | null>(
+    "projects",
+  );
 
-  const bringToFront = useCallback((id: WindowId, nextState?: Partial<WindowState>) => {
-    setWindows((prev) => {
-      const nextZIndex = Math.max(...Object.values(prev).map((windowState) => windowState.zIndex)) + 1;
+  const bringToFront = useCallback(
+    (id: WindowId, nextState?: Partial<WindowState>) => {
+      setWindows((prev) => {
+        const nextZIndex =
+          Math.max(
+            ...Object.values(prev).map((windowState) => windowState.zIndex),
+          ) + 1;
 
-      return {
-        ...prev,
-        [id]: {
-          ...prev[id],
-          ...nextState,
-          zIndex: nextZIndex,
-        },
-      };
-    });
+        return {
+          ...prev,
+          [id]: {
+            ...prev[id],
+            ...nextState,
+            zIndex: nextZIndex,
+          },
+        };
+      });
 
-    setActiveWindowId(id);
-  }, []);
+      setActiveWindowId(id);
+    },
+    [],
+  );
 
-  const openWindow = useCallback((id: WindowId) => {
-    bringToFront(id, {
-      isOpen: true,
-      isMinimized: false,
-    });
-  }, [bringToFront]);
+  const openWindow = useCallback(
+    (id: WindowId) => {
+      bringToFront(id, {
+        isOpen: true,
+        isMinimized: false,
+      });
+    },
+    [bringToFront],
+  );
 
   const closeWindow = useCallback((id: WindowId) => {
     setWindows((prev) => ({
@@ -106,58 +133,73 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     setActiveWindowId((prev) => (prev === id ? null : prev));
   }, []);
 
-  const restoreWindow = useCallback((id: WindowId) => {
-    bringToFront(id, {
-      isOpen: true,
-      isMinimized: false,
-    });
-  }, [bringToFront]);
+  const restoreWindow = useCallback(
+    (id: WindowId) => {
+      bringToFront(id, {
+        isOpen: true,
+        isMinimized: false,
+      });
+    },
+    [bringToFront],
+  );
 
-  const focusWindow = useCallback((id: WindowId) => {
-    if (!windows[id].isOpen || windows[id].isMinimized) {
-      restoreWindow(id);
-      return;
-    }
+  const focusWindow = useCallback(
+    (id: WindowId) => {
+      if (!windows[id].isOpen || windows[id].isMinimized) {
+        restoreWindow(id);
+        return;
+      }
 
-    bringToFront(id);
-  }, [bringToFront, restoreWindow, windows]);
+      bringToFront(id);
+    },
+    [bringToFront, restoreWindow, windows],
+  );
 
-  const toggleMaximizeWindow = useCallback((id: WindowId) => {
-    bringToFront(id, {
-      isMaximized: !windows[id].isMaximized,
-      isMinimized: false,
-    });
-  }, [bringToFront, windows]);
+  const toggleMaximizeWindow = useCallback(
+    (id: WindowId) => {
+      bringToFront(id, {
+        isMaximized: !windows[id].isMaximized,
+        isMinimized: false,
+      });
+    },
+    [bringToFront, windows],
+  );
 
-  const updateWindowPosition = useCallback((id: WindowId, position: { x: number; y: number }) => {
-    setWindows((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        position,
-      },
-    }));
-  }, []);
+  const updateWindowPosition = useCallback(
+    (id: WindowId, position: { x: number; y: number }) => {
+      setWindows((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          position,
+        },
+      }));
+    },
+    [],
+  );
 
-  const updateWindowSize = useCallback((id: WindowId, size: { width: number; height: number }) => {
-    setWindows((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        size,
-      },
-    }));
-  }, []);
+  const updateWindowSize = useCallback(
+    (id: WindowId, size: { width: number; height: number }) => {
+      setWindows((prev) => ({
+        ...prev,
+        [id]: {
+          ...prev[id],
+          size,
+        },
+      }));
+    },
+    [],
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const keyMap: Record<string, WindowId> = {
-        '1': 'projects',
-        '2': 'about',
-        '3': 'skills',
-        '4': 'resume',
-        '5': 'contact',
-        '6': 'archive',
+        "1": "projects",
+        "2": "about",
+        "3": "skills",
+        "4": "resume",
+        "5": "contact",
+        // "6": "archive",
       };
 
       if ((event.metaKey || event.ctrlKey) && keyMap[event.key]) {
@@ -165,14 +207,14 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         openWindow(keyMap[event.key]);
       }
 
-      if (event.key === 'Escape' && activeWindowId) {
+      if (event.key === "Escape" && activeWindowId) {
         closeWindow(activeWindowId);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeWindowId, closeWindow, openWindow]);
 
   const value = useMemo(
@@ -202,5 +244,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     ],
   );
 
-  return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>;
+  return (
+    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
+  );
 };
