@@ -1,4 +1,5 @@
 import { Typograpy } from "components/atoms/Typograpy";
+import { StoreBadge } from "components/atoms/StoreBadge";
 import { Icon } from "components/molecules/Icon";
 import { Project, projects } from "data/portfolioData";
 import { useIcon } from "hooks/useImage";
@@ -83,6 +84,18 @@ const ProjectsWindow: React.FC = () => {
               <Typograpy as="p" type="body" className="font-bold">
                 소속/연계 회사 : {selectedProject.company}
               </Typograpy>
+              {selectedProject.externalLinks &&
+                selectedProject.externalLinks.length > 0 && (
+                  <div className="store-badge-group hero-links">
+                    {selectedProject.externalLinks.map((link) => (
+                      <StoreBadge
+                        key={link.href}
+                        type={link.label}
+                        href={link.href}
+                      />
+                    ))}
+                  </div>
+                )}
               <Typograpy as="p" type="body">
                 {selectedProject.summary}
               </Typograpy>
