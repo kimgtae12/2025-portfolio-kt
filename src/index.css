@@ -798,9 +798,73 @@ img {
 
 .project-hero__metrics strong,
 .project-summary-grid strong {
-  font-size: 1.45rem;
-  line-height: 1.45;
+  font-size: 1.4rem;
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
 }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  padding: 2rem;
+}
+
+.project-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+/* Store Badges */
+.store-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.store-badge-group.hero-links {
+  margin: 0.8rem 0 1.2rem;
+}
+
+.store-badge {
+  display: block;
+  height: 3.6rem;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
+}
+
+.store-badge:hover {
+  transform: translateY(-3px) scale(1.03);
+  filter: brightness(1.1);
+}
+
+.website-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  height: 4rem;
+  padding: 0 1.8rem;
+  border-radius: 0.8rem;
+  background: var(--bg-soft-strong);
+  border: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.website-badge:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+}
+
+.website-badge svg {
+  color: var(--accent);
+}
+
 
 .project-grid {
   display: grid;
