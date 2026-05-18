@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Typograpy } from "components/atoms/Typograpy";
 import Header from "../organisms/Header";
 import { ModalProvider, useModal } from "context/ModalContext";
@@ -21,14 +21,11 @@ interface MainLayoutProps {
 const BootScreen: React.FC<{ done: boolean }> = ({ done }) => (
   <div className={`boot-screen ${done ? "is-hidden" : ""}`}>
     <div className="boot-screen__content">
-      <Typograpy as="span" className="boot-screen__logo mono" type="caption">
-        KT / Portfolio OS
-      </Typograpy>
       <div className="boot-screen__bar">
         <div className="boot-screen__bar-fill" />
       </div>
       <Typograpy as="p" type="body">
-        불러오는 중…
+        로딩중...
       </Typograpy>
     </div>
   </div>
@@ -215,8 +212,10 @@ const DesktopPortfolio: React.FC = () => {
 };
 
 const PortfolioFrame: React.FC = () => {
+  const { openWindow } = useModal();
   const [bootDone, setBootDone] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(() => window.innerWidth);
+  const hasOpenedInitialResume = useRef(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setBootDone(true), 1850);
@@ -230,6 +229,15 @@ const PortfolioFrame: React.FC = () => {
   }, []);
 
   const isDesktop = useMemo(() => viewportWidth > 1024, [viewportWidth]);
+
+  useEffect(() => {
+    if (hasOpenedInitialResume.current || !bootDone || !isDesktop) {
+      return;
+    }
+
+    hasOpenedInitialResume.current = true;
+    openWindow("resume");
+  }, [bootDone, isDesktop, openWindow]);
 
   return (
     <div

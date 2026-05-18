@@ -35,11 +35,7 @@ const SkillItem: React.FC<{ item: any }> = ({ item }) => {
             />
           </div>
         )}
-        <Typograpy
-          as="span"
-          className="font-bold text-white text-2xl"
-          type="body"
-        >
+        <Typograpy as="span" className="font-bold text-2xl" type="body">
           {item.name}
         </Typograpy>
       </div>
@@ -58,7 +54,7 @@ const SkillsWindow: React.FC = () => (
           <Typograpy as="span" className="mono" type="caption">
             {group.title.toUpperCase()}
           </Typograpy>
-          <strong>{group.title}</strong>
+          {/* <strong>{group.title}</strong> */}
         </div>
         <div className="info-grid">
           {group.items.map((item) => (

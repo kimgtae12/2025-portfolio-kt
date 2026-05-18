@@ -5,23 +5,23 @@
 @import "./styles/components/typography.css";
 
 :root {
-  --bg-primary: #07111f;
-  --bg-secondary: rgba(11, 20, 35, 0.78);
-  --bg-tertiary: rgba(17, 27, 46, 0.88);
-  --bg-soft: rgba(255, 255, 255, 0.06);
-  --bg-soft-strong: rgba(255, 255, 255, 0.12);
-  --border-soft: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --text-primary: #f5f7fb;
-  --text-secondary: #c7d2e6;
-  --text-muted: #8da0bf;
-  --accent: #6aa6ff;
-  --accent-soft: rgba(106, 166, 255, 0.18);
+  --bg-primary: #f6f8fc;
+  --bg-secondary: rgba(255, 255, 255, 0.82);
+  --bg-tertiary: rgba(255, 255, 255, 0.94);
+  --bg-soft: rgba(255, 255, 255, 0.62);
+  --bg-soft-strong: rgba(241, 246, 255, 0.92);
+  --border-soft: rgba(148, 163, 184, 0.2);
+  --border-strong: rgba(148, 163, 184, 0.3);
+  --text-primary: #162033;
+  --text-secondary: #4f5d78;
+  --text-muted: #7a879d;
+  --accent: #4f8cff;
+  --accent-soft: rgba(79, 140, 255, 0.14);
   --success: #4fd1a5;
   --warning: #ffd166;
   --danger: #ff6b6b;
-  --shadow-window: 0 24px 60px rgba(0, 0, 0, 0.34);
-  --shadow-floating: 0 18px 45px rgba(4, 10, 20, 0.34);
+  --shadow-window: 0 18px 42px rgba(148, 163, 184, 0.12);
+  --shadow-floating: 0 12px 30px rgba(148, 163, 184, 0.1);
 }
 
 * {
@@ -43,18 +43,7 @@ body {
   margin: 0;
   font-family: var(--font-family-primary);
   color: var(--text-primary);
-  background:
-    radial-gradient(
-      circle at top left,
-      rgba(62, 100, 180, 0.24),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at top right,
-      rgba(46, 130, 255, 0.16),
-      transparent 24%
-    ),
-    linear-gradient(160deg, #091120 0%, #0d1729 44%, #111d31 100%);
+  background: #f1f3f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -66,10 +55,10 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
   background-size: 48px 48px;
-  opacity: 0.3;
+  opacity: 0.35;
 }
 
 button,
@@ -102,7 +91,7 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(148, 163, 184, 0.34);
   border-radius: 999px;
 }
 
@@ -120,10 +109,10 @@ img {
 .glass-panel {
   background: linear-gradient(
     180deg,
-    rgba(14, 24, 40, 0.92),
-    rgba(10, 18, 31, 0.88)
+    rgba(255, 255, 255, 0.92),
+    rgba(246, 249, 255, 0.9)
   );
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow-floating);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -138,8 +127,8 @@ img {
   border-radius: 999px;
   font-size: 1.2rem;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(248, 250, 255, 0.88);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .mono {
@@ -172,8 +161,8 @@ img {
   justify-content: center;
   background: radial-gradient(
     circle at center,
-    rgba(39, 78, 150, 0.22),
-    rgba(5, 10, 20, 0.96) 58%
+    rgba(79, 140, 255, 0.16),
+    rgba(246, 249, 255, 0.96) 58%
   );
   z-index: 400;
   transition:
@@ -204,7 +193,7 @@ img {
   height: 0.8rem;
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(203, 213, 225, 0.45);
 }
 
 .boot-screen__bar-fill {
@@ -259,7 +248,7 @@ img {
 .topbar__divider {
   width: 1px;
   height: 1.4rem;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(148, 163, 184, 0.34);
 }
 
 .desktop-icons {
@@ -285,15 +274,15 @@ img {
     transform 0.18s ease,
     border-color 0.18s ease,
     background 0.18s ease;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(226, 232, 240, 0.85);
 }
 
 .desktop-icon:hover,
 .desktop-icon.is-active {
   transform: translateY(-3px);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.86);
+  border-color: rgba(79, 140, 255, 0.24);
 }
 
 .desktop-icon__badge {
@@ -306,8 +295,10 @@ img {
   margin-bottom: 1rem;
   font-size: 1.4rem;
   font-weight: 700;
-  color: #07111f;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  color: #122033;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    0 8px 18px rgba(148, 163, 184, 0.12);
 }
 
 .desktop-icon__title {
@@ -366,8 +357,8 @@ img {
   gap: 0.5rem;
   padding: 1.2rem;
   border-radius: 1.6rem;
-  background: rgba(7, 13, 24, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(248, 250, 255, 0.88);
+  border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .desktop-summary__stat span {
@@ -404,12 +395,12 @@ img {
 
 .primary-action {
   background: var(--accent);
-  color: #07111f;
+  color: #ffffff;
 }
 
 .secondary-action {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .primary-action:hover,
@@ -460,10 +451,10 @@ img {
   border-radius: 2rem;
   background: linear-gradient(
     180deg,
-    rgba(10, 18, 31, 0.98),
-    rgba(7, 13, 24, 0.98)
+    rgba(255, 255, 255, 0.98),
+    rgba(247, 250, 255, 0.98)
   );
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow-window);
   transition:
     opacity 0.16s ease,
@@ -472,8 +463,8 @@ img {
 }
 
 .window-frame.is-inactive .window-shell {
-  opacity: 0.86;
-  border-color: rgba(255, 255, 255, 0.08);
+  opacity: 0.92;
+  border-color: rgba(226, 232, 240, 0.88);
 }
 
 .window-header {
@@ -485,10 +476,10 @@ img {
   padding: 0 1.4rem;
   background: linear-gradient(
     180deg,
-    rgba(21, 33, 54, 0.96),
-    rgba(15, 25, 41, 0.96)
+    rgba(252, 253, 255, 0.98),
+    rgba(243, 247, 255, 0.96)
   );
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
   cursor: grab;
 }
 
@@ -560,8 +551,8 @@ img {
 .content-card {
   padding: 1.8rem;
   border-radius: 1.8rem;
-  background: rgba(10, 18, 31, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .content-card.is-wide {
@@ -583,6 +574,7 @@ img {
 .content-card__header strong,
 .window-section-heading strong {
   font-size: 1.6rem;
+  white-space: pre-line;
 }
 
 .content-card p,
@@ -642,8 +634,8 @@ img {
 .mini-card {
   padding: 1.4rem;
   border-radius: 1.6rem;
-  background: rgba(8, 15, 26, 0.76);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(248, 250, 255, 0.94);
+  border: 1px solid rgba(226, 232, 240, 0.92);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -684,8 +676,8 @@ img {
   padding: 1.2rem;
   border-radius: 1.8rem;
   text-align: left;
-  background: rgba(8, 15, 26, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(226, 232, 240, 0.9);
   transition:
     transform 0.16s ease,
     border-color 0.16s ease,
@@ -707,11 +699,7 @@ img {
   min-height: 8.2rem;
   padding: 1rem;
   border-radius: 1.4rem;
-  background: linear-gradient(
-    145deg,
-    rgba(106, 166, 255, 0.26),
-    rgba(124, 140, 255, 0.18)
-  );
+  background: #f6f6f6;
 }
 
 .project-list__thumb span {
@@ -757,10 +745,10 @@ img {
   border-radius: 2.2rem;
   background: linear-gradient(
     135deg,
-    rgba(37, 73, 129, 0.62),
-    rgba(12, 20, 35, 0.92)
+    rgba(255, 255, 255, 0.95),
+    rgba(235, 243, 255, 0.92)
   );
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .project-hero h2 {
@@ -784,8 +772,8 @@ img {
 .project-hero__metrics div {
   padding: 1.4rem;
   border-radius: 1.6rem;
-  background: rgba(7, 13, 24, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(248, 250, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.92);
 }
 
 .project-hero__metrics span,
@@ -831,7 +819,9 @@ img {
 .store-badge {
   display: block;
   height: 3.6rem;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
+  transition:
+    transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    filter 0.2s ease;
 }
 
 .store-badge:hover {
@@ -853,18 +843,19 @@ img {
   font-weight: 600;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 .website-badge:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(233, 240, 255, 0.96);
   transform: translateY(-2px);
 }
 
 .website-badge svg {
   color: var(--accent);
 }
-
 
 .project-grid {
   display: grid;
@@ -893,8 +884,8 @@ img {
   border-radius: 999px;
   font-size: 1.2rem;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(247, 250, 255, 0.92);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 .resume-window {
@@ -913,12 +904,12 @@ img {
   width: 14rem;
   height: 14rem;
   border-radius: 2.4rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(226, 232, 240, 0.92);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 12px 28px rgba(148, 163, 184, 0.12);
 }
 
 .resume-hero__content {
@@ -960,8 +951,8 @@ img {
   gap: 0.7rem;
   padding: 1.6rem;
   border-radius: 1.8rem;
-  background: rgba(8, 15, 26, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(226, 232, 240, 0.95);
   transition:
     transform 0.18s ease,
     border-color 0.18s ease;
@@ -986,8 +977,8 @@ img {
 .archive-sidebar {
   padding: 1.8rem;
   border-radius: 1.8rem;
-  background: rgba(8, 15, 26, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 232, 240, 0.95);
 }
 
 .archive-sidebar__list {
@@ -1003,7 +994,7 @@ img {
   gap: 0.4rem;
   padding: 1.2rem;
   border-radius: 1.4rem;
-  background: rgba(12, 20, 35, 0.78);
+  background: rgba(247, 250, 255, 0.95);
 }
 
 .archive-sidebar__group span {
@@ -1065,12 +1056,14 @@ img {
   border-radius: 1.8rem;
   font-size: 1.35rem;
   font-weight: 700;
-  color: #07111f;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
+  color: #122033;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.5),
+    0 8px 18px rgba(148, 163, 184, 0.1);
 }
 
 .dock__icon--link {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(248, 250, 255, 0.96);
   color: var(--text-primary);
 }
 
@@ -1080,8 +1073,8 @@ img {
   left: 50%;
   padding: 0.7rem 1rem;
   border-radius: 1rem;
-  background: rgba(10, 17, 29, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(226, 232, 240, 0.95);
   font-size: 1.15rem;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -1111,7 +1104,7 @@ img {
 .dock__separator {
   width: 1px;
   height: 4.4rem;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(148, 163, 184, 0.22);
 }
 
 .mobile-portfolio {
@@ -1148,7 +1141,7 @@ img {
 .mobile-hero__stats div {
   padding: 1.4rem;
   border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(248, 250, 255, 0.9);
 }
 
 .mobile-hero__stats span {

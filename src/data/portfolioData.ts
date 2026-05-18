@@ -65,7 +65,7 @@ export const desktopWindows: Array<{
     id: "skills",
     label: "Skills",
     shortLabel: "SK",
-    description: "이런거 할줄 압니다.",
+    description: "직무 스킬",
     accent: "#4fd1a5",
     defaultSize: { width: 820, height: 600 },
     defaultPosition: { x: 170, y: 104 },
@@ -416,7 +416,7 @@ export const skillGroups = [
 
 export const resumeSections = [
   {
-    title: "Summary",
+    title: "전체 구조를 먼저 그리고,\n안정적으로 구현까지 이어갑니다.",
     lines: [
       "4년 2개월 경력의 프론트엔드 개발자로서, 다수의 프로젝트에서 초기 아키텍처 설계부터 전체 구조 및 라우팅 시스템 구축을 주도해왔습니다.",
       "React, Next.js(App Router), React Native를 활용하여 헬스케어 커머스, 핀테크, B2B/B2B2C 플랫폼 등 복잡한 도메인에서 프론트엔드 총괄 및 단독 개발을 성공적으로 수행했습니다.",
@@ -424,7 +424,7 @@ export const resumeSections = [
     ],
   },
   {
-    title: "Strength",
+    title: "복잡한 요구도 정리해서,\n쓰기 쉬운 화면으로 바꾸는 편입니다.",
     lines: [
       "주도적인 아키텍처 설계 역량: 프로젝트 목적에 따라 확장 가능한 초기 폴더 구조, 타입 시스템, 라우팅 시스템을 독자적으로 설계하고 구축합니다.",
       "효율 중심의 컴포넌트 전략: 아토믹 패턴과 템플릿화 기법을 도입해 중복 코드를 최소화하고, 공통 UI 수정 시 발생하는 번거로움을 시스템적으로 해결합니다.",
@@ -432,7 +432,7 @@ export const resumeSections = [
     ],
   },
   {
-    title: "Experience Snapshot",
+    title: "여러 도메인에서 처음부터 끝까지,\n책임지고 만들어왔습니다.",
     lines: [
       "헬스케어 커머스 및 AI 핀테크 앱 단독 구축 — 5개년 진료 데이터 시각화 및 연말정산 환급금 예측 시스템의 전체 구조와 라우팅 설계 주도.",
       "아토믹 패턴 기반 B2B/B2B2C 플랫폼 설계 — 보험 컨설팅 및 중장비 배차 시스템에 아토믹 디자인을 적용하여 복잡한 테이블 UI와 서류 자동화 프로세스 구축.",

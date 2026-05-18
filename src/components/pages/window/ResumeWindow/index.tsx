@@ -136,9 +136,6 @@ const ResumeWindow = () => {
         {resumeSections.map((section) => (
           <section key={section.title} className="content-card">
             <div className="content-card__header">
-              <Typograpy as="span" className="mono" type="caption">
-                RESUME SECTION
-              </Typograpy>
               <strong>{section.title}</strong>
             </div>
 

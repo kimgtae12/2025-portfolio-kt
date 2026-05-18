@@ -43,14 +43,48 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 const MIN_Z_INDEX = 20;
 
+const getCenteredPosition = (size: { width: number; height: number }) => {
+  if (typeof window === "undefined") {
+    return { x: 200, y: 88 };
+  }
+
+  const horizontalPadding = 24;
+  const topOffset = 52;
+  const bottomReserved = 124;
+
+  const maxX = Math.max(
+    window.innerWidth - size.width - horizontalPadding,
+    horizontalPadding,
+  );
+  const maxY = Math.max(
+    window.innerHeight - size.height - bottomReserved,
+    topOffset,
+  );
+
+  return {
+    x: Math.min(
+      Math.max((window.innerWidth - size.width) / 2, horizontalPadding),
+      maxX,
+    ),
+    y: Math.min(
+      Math.max((window.innerHeight - size.height) / 2, topOffset),
+      maxY,
+    ),
+  };
+};
+
 const createInitialWindows = (): WindowMap =>
   desktopWindows.reduce((acc, windowConfig, index) => {
+    const isInitialProfileWindow = windowConfig.id === "resume";
+
     acc[windowConfig.id] = {
       isOpen: false,
       isMinimized: false,
       isMaximized: false,
       zIndex: MIN_Z_INDEX + index,
-      position: windowConfig.defaultPosition,
+      position: isInitialProfileWindow
+        ? getCenteredPosition(windowConfig.defaultSize)
+        : windowConfig.defaultPosition,
       size: windowConfig.defaultSize,
     };
 
@@ -71,9 +105,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [windows, setWindows] = useState<WindowMap>(createInitialWindows);
-  const [activeWindowId, setActiveWindowId] = useState<WindowId | null>(
-    "projects",
-  );
+  const [activeWindowId, setActiveWindowId] = useState<WindowId | null>(null);
 
   const bringToFront = useCallback(
     (id: WindowId, nextState?: Partial<WindowState>) => {

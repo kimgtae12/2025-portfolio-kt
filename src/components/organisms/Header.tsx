@@ -10,7 +10,7 @@ const Header: React.FC = () => {
       <div className="topbar__left">
         <Typograpy
           as="span"
-          className="text-white topbar__brand"
+          className="topbar__brand"
           type="caption"
         >
           KT Portfolio OS

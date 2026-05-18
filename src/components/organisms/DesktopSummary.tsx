@@ -25,14 +25,14 @@ export const DesktopSummary: React.FC = () => {
           onClick={() => openWindow("projects")}
           type="button"
         >
-          대표 프로젝트 보기
+          대표 프로젝트
         </button>
         <button
           className="secondary-action"
           onClick={() => openWindow("resume")}
           type="button"
         >
-          이력 요약 열기
+          프로필
         </button>
       </div>
     </section>

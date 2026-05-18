@@ -21,7 +21,7 @@ const ProjectsWindow: React.FC = () => {
     <div className="projects-window">
       <div className="projects-window__sidebar">
         <div className="window-section-heading">
-          <Typograpy className={"text-white font-bold"}>
+          <Typograpy className={"font-bold"}>
             대표 프로젝트
           </Typograpy>
         </div>
